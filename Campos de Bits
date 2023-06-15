@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+union valor{
+  struct partes{
+    unsigned int mantisa : 23;
+    unsigned int exp : 8;
+    unsigned int signo : 1;
+  }partes;
+  float valor;
+}num;
+
+int main(void) {
+  scanf("%f", &num.valor);
+  printf("El signo en Hexadecimal es %x\n", num.partes.signo);
+  printf("El exponente en Hexadecimal es %x\n", num.partes.exp);
+  printf("La mantisa en Hexadecimal es %x\n", num.partes.mantisa);
+}
