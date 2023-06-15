@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main(void) {
+  float A;
+  char* num = (char*) &A;
+  scanf("%f", &A);
+  printf("0x%x", *(num+3));
+  printf("%x", *(num+2));
+  printf("%x", *(num+1));
+  printf("%x", *num);
+}
