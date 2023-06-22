@@ -6,20 +6,19 @@ unsigned long time;
 
 void debounceFSM_init();	// Debe cargar el estado inicial.
 void debounceFSM_update();	// Debe leer las entradas, 
-							// resolver la lógica detransición de estados 
-							// y actualizar las salidas.
+				// resolver la lógica detransición de estados 
+				// y actualizar las salidas.
 void buttonPressed();		
 void buttonReleased();		
 
 typedef enum{
   BUTTON_UP, 		//0 BOTON LIBERADO (LOW)
   BUTTON_FALLING,	//1 OCURRIENDO FLANCO DESCENDENTE
-  BUTTON_DOWN,	    //2 BOTON PRESIONADO (HIGH)
+  BUTTON_DOWN,	    	//2 BOTON PRESIONADO (HIGH)
   BUTTON_RISING,	//3 OCURRIENDO FLANCO ASCENDENTE
 } debounceState_t;
 
 debounceState_t state; 
-
 
 void setup()
 {
@@ -35,7 +34,6 @@ void loop()
   debounceFSM_update();
 }
 
-
 void debounceFSM_init(){
   state = BUTTON_DOWN;  // BOTON INICIALIZADO SIN PRESIONAR
 }
@@ -43,36 +41,36 @@ void debounceFSM_init(){
 void debounceFSM_update()
 {
   switch (state){
-  			case BUTTON_UP:			// Pasa a Fallling si se presiona
-    				time=millis();
-    				if(digitalRead(BUTTON)== HIGH) state=BUTTON_FALLING;
-  					break;
-  			case BUTTON_FALLING:
-    				if(millis()-time>40){  //En caso de que se quiera que sea mas tiempo, se cambia el 40. 
-                      time=millis();       //Por ejemplo, al cambiar el tiempo 40 por un segundo, solo cambiara si un segundo entero esta presionado el boton.
-                      if(digitalRead(BUTTON)== HIGH){
-                      	state = BUTTON_DOWN;
+  	case BUTTON_UP:			// Pasa a Fallling si se presiona
+    		time=millis();
+    		if(digitalRead(BUTTON)== HIGH) state=BUTTON_FALLING;
+  		break;
+  	case BUTTON_FALLING:
+    		if(millis()-time>40){  //En caso de que se quiera que sea mas tiempo, se cambia el 40. 
+                time=millis();       //Por ejemplo, al cambiar el tiempo 40 por un segundo, solo cambiara si un segundo entero esta presionado el boton.
+                if(digitalRead(BUTTON)== HIGH){
+                	state = BUTTON_DOWN;
                         buttonPressed();
-                      }else{
+                }else{
                         state=BUTTON_UP;
-                      }  
-                    }
-  					break;
-  			case BUTTON_RISING:
-    				if(millis()-time>40){
-                      time=millis();
-                      if(digitalRead(BUTTON)== LOW){
-                      	state = BUTTON_UP;
+		  }  
+                }
+  		break;
+  	case BUTTON_RISING:
+    		if(millis()-time>40){
+                time=millis();
+                if(digitalRead(BUTTON)== LOW){
+                	state = BUTTON_UP;
                         buttonReleased();
-                      }else{
+                }else{
                         state=BUTTON_DOWN;
-                      }  
-                    }
-  					break;
-  			case BUTTON_DOWN: 		// Pasa a Rising si se suelta
-    				time=millis();
-    				if(digitalRead(BUTTON)==LOW) state=BUTTON_RISING;
-  					break;
+                  }  
+                }
+  		break;
+  	case BUTTON_DOWN: 		// Pasa a Rising si se suelta
+    		time=millis();
+    		if(digitalRead(BUTTON)==LOW) state=BUTTON_RISING;
+  		break;
   }
 }
 
@@ -85,7 +83,6 @@ void buttonReleased(){
     digitalWrite(LED1, LOW);
     digitalWrite(LED2, HIGH);
 }
-
 
 //Si está en estado UP y Pesionan el pulsador pasa al estado FALLING.
 
