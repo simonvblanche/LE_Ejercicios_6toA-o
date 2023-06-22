@@ -44,6 +44,7 @@ void debounceFSM_update()
 {
   switch (state){
   			case BUTTON_UP:			// Pasa a Fallling si se presiona
+    				time=millis();
     				if(digitalRead(BUTTON)== HIGH) state=BUTTON_FALLING;
   					break;
   			case BUTTON_FALLING:
@@ -69,6 +70,7 @@ void debounceFSM_update()
                     }
   					break;
   			case BUTTON_DOWN: 		// Pasa a Rising si se suelta
+    				time=millis();
     				if(digitalRead(BUTTON)==LOW) state=BUTTON_RISING;
   					break;
   }
