@@ -1,0 +1,22 @@
+#define LED 7
+
+unsigned long time;
+
+void setup()
+{
+  pinMode(LED, OUTPUT);
+  time=millis();
+}
+
+void loop()
+{
+  if(millis()-time>1000){
+    time=millis();
+    if (digitalRead(LED)== HIGH){  // Paso 1 segundo
+      digitalWrite(LED,LOW);
+    }else if(digitalRead(LED)==LOW){
+      digitalWrite(LED,HIGH);
+    }
+  }
+}
+  
