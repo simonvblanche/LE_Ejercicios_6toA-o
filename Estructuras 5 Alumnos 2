@@ -5,8 +5,8 @@
 #define CAN 5
 
 struct alumno {
-	char Nombre[30];
-	char Apellido[30];
+  char Nombre[30];
+  char Apellido[30];
   unsigned int Edad;
   char GS[10];
   unsigned int Anio;
