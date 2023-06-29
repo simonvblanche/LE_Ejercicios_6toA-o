@@ -1,40 +1,51 @@
-#define LED1 10 
-#define LED2 9
-#define BUTTON 8 
+#define LED1 9 
+#define LED2 8
+#define BUTTON 10 
 
 unsigned long time;
 
-void debounceFSM_init();	// Debe cargar el estado inicial.
-void debounceFSM_update();	// Debe leer las entradas, 
-							// resolver la lógica detransición de estados 
-							// y actualizar las salidas.
-void buttonPressed();		
-void buttonReleased();		
+void debounceFSM_init();  // Debe cargar el estado inicial.
+void debounceFSM_update();  // Debe leer las entradas, 
+              // resolver la lógica detransición de estados 
+              // y actualizar las salidas.
+void buttonPressed();   
+void buttonReleased();    
 
 typedef enum{
-  BUTTON_UP, 		//0 BOTON LIBERADO (LOW)
-  BUTTON_FALLING,	//1 OCURRIENDO FLANCO DESCENDENTE
-  BUTTON_DOWN,	    //2 BOTON PRESIONADO (HIGH)
-  BUTTON_RISING,	//3 OCURRIENDO FLANCO ASCENDENTE
+  BUTTON_UP,    //0 BOTON LIBERADO (LOW)
+  BUTTON_FALLING, //1 OCURRIENDO FLANCO DESCENDENTE
+  BUTTON_DOWN,      //2 BOTON PRESIONADO (HIGH)
+  BUTTON_RISING,  //3 OCURRIENDO FLANCO ASCENDENTE
 } debounceState_t;
 
 debounceState_t state; 
 
 void seg7();
 
-char numero[5] = {
-  B00111111,
-  B00000110,
-  B01011011,
-  B01001111,
-  B01100110
+char numero[16] = {
+  B10000000, // 0
+  B11110010, // 1
+  B01001000, // 2
+  B01100000, // 3
+  B00110010, // 4
+  B00100100, // 5
+  B00000100, // 6
+  B11110000, // 7
+  B00000000, // 8
+  B00110000, // 9
+  B01000000, // a
+  B00000110, // b
+  B10001100, // c
+  B01000010, // d
+  B00001000, // e
+  B00011100  // f
 };
 char A=0;
 
 
 void setup()
 {
-  
+  PORTD=B10000000;
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(BUTTON, INPUT);
@@ -56,50 +67,46 @@ void debounceFSM_init(){
 void debounceFSM_update()
 {
   switch (state){
-  			case BUTTON_UP:			// Pasa a Fallling si se presiona
-    				time=millis();
-    				if(digitalRead(BUTTON)== HIGH) state=BUTTON_FALLING;
-  					break;
-  			case BUTTON_FALLING:
-    				if(millis()-time>40){  //En caso de que se quiera que sea mas tiempo, se cambia el 40. 
+        case BUTTON_UP:     // Pasa a Fallling si se presiona
+            time=millis();
+            if(digitalRead(BUTTON)== HIGH) state=BUTTON_FALLING;
+            break;
+        case BUTTON_FALLING:
+            if(millis()-time>40){  //En caso de que se quiera que sea mas tiempo, se cambia el 40. 
                       time=millis();       //Por ejemplo, al cambiar el tiempo 40 por un segundo, solo cambiara si un segundo entero esta presionado el boton.
                       if(digitalRead(BUTTON)== HIGH){
-                      	state = BUTTON_DOWN;
+                        state = BUTTON_DOWN;
                         buttonPressed();
                       }else{
                         state=BUTTON_UP;
                       }  
                     }
-  					break;
-  			case BUTTON_RISING:
-    				if(millis()-time>40){
+            break;
+        case BUTTON_RISING:
+            if(millis()-time>40){
                       time=millis();
                       if(digitalRead(BUTTON)== LOW){
-                      	state = BUTTON_UP;
+                        state = BUTTON_UP;
                         buttonReleased();
                       }else{
                         state=BUTTON_DOWN;
                       }  
                     }
-  					break;
-  			case BUTTON_DOWN: 		// Pasa a Rising si se suelta
-    				time=millis();
-    				if(digitalRead(BUTTON)==LOW) state=BUTTON_RISING;
-  					break;
+            break;
+        case BUTTON_DOWN:     // Pasa a Rising si se suelta
+            time=millis();
+            if(digitalRead(BUTTON)==LOW) state=BUTTON_RISING;
+            break;
   }
 }
 
 void buttonPressed(){
   digitalWrite(LED1, HIGH);
   digitalWrite(LED2, LOW);
-  if((A<4)&&(digitalRead(BUTTON)==HIGH)){
-    A++; 
-    PORTD = numero[A];
-  }
-  else if ((A==4)&&(digitalRead(BUTTON)==HIGH)){
-    A=0;
-    PORTD = numero[A];
-  }
+  A++; 
+  if (A==16)A=0;
+  PORTD = numero[A];
+  
 }
 
 void buttonReleased(){
