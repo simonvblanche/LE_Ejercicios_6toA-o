@@ -1,0 +1,161 @@
+#include <iostream>
+using namespace std;
+
+class Materias {
+  private:
+    string profesor;
+    char nota;
+    int horario;
+    int alumnos;
+  public:
+    void Horario();
+    void Nota();
+    void Profesor();
+    void Alumnos();
+};
+
+void Materias::Horario(){
+  cin >> horario;
+}
+void Materias::Nota(){
+  cin >> nota;
+}
+void Materias::Profesor(){
+  cin >> profesor;
+  cin.ignore(256, '\n');
+}
+void Materias::Alumnos(){
+  cin >> alumnos;
+}
+
+class matematica:public Materias {
+  private:  
+    string temas;
+    int ejercicios;
+  public:
+    void Temas();
+    void Ejercicios();
+};
+
+void matematica::Temas(){
+  cin >> temas;
+  cin.ignore(256, '\n');
+}
+void matematica::Ejercicios(){
+  cin >> ejercicios;
+}
+
+class literatura:public Materias{
+  private:
+    string libros;
+    int paginas;
+  public:
+    void Libros();
+    void Paginas();
+};
+
+void literatura::Libros(){
+  cin >> libros;
+  cin.ignore(256, '\n');
+}
+void literatura::Paginas(){
+  cin >> paginas;
+}
+
+class literatura primeroL;
+class literatura segundoL;
+
+class matematica primeroM;
+class matematica segundoM;
+
+char anios (void);
+
+int main() {
+  char comb = anios();
+  switch(comb) 
+  {
+      case 1: 
+        cout << "Horario Militar Clase Primero Literatura" << endl;
+        primeroL.Horario();
+        cout << "Nota Promedio Clase Primero Literatura" << endl;
+        primeroL.Nota();
+        cout << "Apellido Profesor Clase Primero Literatura" << endl;
+        primeroL.Profesor();
+        cout << "Cantidad de Alumnos Clase Primero Literatura" << endl;
+        primeroL.Alumnos();
+        cout << "Libros Leidos Clase Primero Literatura" << endl;
+        primeroL.Libros();
+        cout << "Paginas Leidas Clase Primero Literatura" << endl;
+        primeroL.Paginas();
+      break;
+      case 2: 
+        cout << "Horario Militar Clase Primero Matematica" << endl;
+        primeroM.Horario();
+        cout << "Nota Promedio Clase Primero Matematica" << endl;
+        primeroM.Nota();
+        cout << "Apellido Profesor Clase Primero Matematica" << endl;
+        primeroM.Profesor();
+        cout << "Cantidad de Alumnos Clase Primero Matematica" << endl;
+        primeroM.Alumnos();
+        cout << "Temas Clase Primero Matematica" << endl;
+        primeroM.Temas();
+        cout << "Cantidad de Ejercicios Resueltos Promedio Clase Primero Matematica" << endl;
+        primeroM.Ejercicios();
+      break;
+      case 3: 
+        cout << "Horario Militar Clase Segundo Literatura" << endl;
+        segundoL.Horario();
+        cout << "Nota Promedio Clase Segundo Literatura" << endl;
+        segundoL.Nota();
+        cout << "Apellido Profesor Clase Segundo Literatura" << endl;
+        segundoL.Profesor();
+        cout << "Cantidad de Alumnos Clase Segundo Literatura" << endl;
+        segundoL.Alumnos();
+        cout << "Libros Leidos Clase Segundo Literatura" << endl;
+        segundoL.Libros();
+        cout << "Paginas Leidas Clase Segundo Literatura" << endl;
+        segundoL.Paginas();
+      break;
+      case 4: 
+        cout << "Horario Militar Clase Segundo Matematica" << endl;
+        segundoM.Horario();
+        cout << "Nota Promedio Clase Segundo Matematica" << endl;
+        segundoM.Nota();
+        cout << "Apellido Profesor Clase Segundo Matematica" << endl;
+        segundoM.Profesor();
+        cout << "Cantidad de Alumnos Clase Segundo Matematica" << endl;
+        segundoM.Alumnos();
+        cout << "Temas Clase Segundo Matematica" << endl;
+        segundoM.Temas();
+        cout << "Cantidad de Ejercicios Resueltos Promedio Clase Segundo Matematica" << endl;
+        segundoM.Ejercicios();
+      break;
+  }
+}
+
+char anios (void){
+  char year;
+  char subject;
+  char comb;
+  cout << "Ingrese el año del curso que quiere ingresar los datos:" << endl;
+  cin >> year;
+  switch(year)
+  {
+      case '1': 
+        cout << "Si quiere ver la materia de matematica presione M" << endl;
+        cout << "Si quiere ver la materia de literatura presione L" << endl;
+        cin >> subject;
+        if (subject == 'L') comb = 1;
+        if (subject == 'M') comb = 2;
+      break;
+      case '2': 
+        cout << "Si quiere ver la materia de matematica presione M:" << endl;
+        cout << "Si quiere ver la materia de literatura presione L:" << endl;
+        cin >> subject;
+        if (subject == 'L') comb = 3;
+        if (subject == 'M') comb = 4;
+      break;
+    break;
+  }
+  return comb;
+}
