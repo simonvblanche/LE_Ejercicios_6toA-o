@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Materias {
+  private:
+    string profesor;
+    char nota;
+    int horario;
+    int alumnos;
+  public:
+    void Horario();
+    void Nota();
+    void Profesor();
+    void Alumnos();
+};
+
+void Materias::Horario(){
+  cin >> horario;
+}
+void Materias::Nota(){
+  cin >> nota;
+}
+void Materias::Profesor(){
+  cin >> profesor;
+  cin.ignore(256, '\n');
+}
+void Materias::Alumnos(){
+  cin >> alumnos;
+}
+
+class matematica:public Materias {
+  private:  
+    string temas;
+    int ejercicios;
+  public:
+    void Temas();
+    void Ejercicios();
+};
+
+void matematica::Temas(){
+  cin >> temas;
+  cin.ignore(256, '\n');
+}
+void matematica::Ejercicios(){
+  cin >> ejercicios;
+}
+
+class literatura:public Materias{
+  private:
+    string libros;
+    int paginas;
+  public:
+    void Libros();
+    void Paginas();
+};
+
+void literatura::Libros(){
+  cin >> libros;
+  cin.ignore(256, '\n');
+}
+void literatura::Paginas(){
+  cin >> paginas;
+}
+
+int main() {
+  class matematica primeroM;
+  cout << "Horario Militar Clase Primero Matematica" << endl;
+  primeroM.Horario();
+  cout << "Nota Promedio Clase Primero Matematica" << endl;
+  primeroM.Nota();
+  cout << "Apellido Profesor Clase Primero Matematica" << endl;
+  primeroM.Profesor();
+  cout << "Cantidad de Alumnos Clase Primero Matematica" << endl;
+  primeroM.Alumnos();
+  cout << "Temas Clase Primero Matematica" << endl;
+  primeroM.Temas();
+  cout << "Cantidad de Ejercicios Resueltos Promedio Clase Primero Matematica" << endl;
+  primeroM.Ejercicios();
+  class literatura primeroL;
+  cout << "Horario Militar Clase Primero Literatura" << endl;
+  primeroL.Horario();
+  cout << "Nota Promedio Clase Primero Literatura" << endl;
+  primeroL.Nota();
+  cout << "Apellido Profesor Clase Primero Literatura" << endl;
+  primeroL.Profesor();
+  cout << "Cantidad de Alumnos Clase Primero Literatura" << endl;
+  primeroL.Alumnos();
+  cout << "Libros Leidos Clase Primero Literatura" << endl;
+  primeroL.Libros();
+  cout << "Paginas Leidas Clase Primero Literatura" << endl;
+  primeroL.Paginas();
+  return 0;
+}
